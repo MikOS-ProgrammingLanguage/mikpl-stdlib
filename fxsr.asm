@@ -35,6 +35,7 @@ is_fxsr_supported:
 	je .fail
 
 	mov rax, 1
+	ret
 
 .fail:
 	mov rax, 0
