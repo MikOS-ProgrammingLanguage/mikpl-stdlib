@@ -1,0 +1,13 @@
+{
+	"name": "link",
+	"commands": [
+		"ld ${ldflags} -o stdlib.o.out ${findall o}"
+	],
+	"dependencies": [
+		"compile"
+	],
+	"run_after_task": [
+		"clean"
+	],
+	"allow_fail": false
+}

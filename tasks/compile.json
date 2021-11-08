@@ -1,0 +1,11 @@
+{
+	"name": "compile",
+	"commands": [],
+	"dependencies": [
+		"asm_comp",
+		"c_comp",
+		"cpp_comp"
+	],
+	"run_after_task": [],
+	"allow_fail": false
+}
