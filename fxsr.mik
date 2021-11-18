@@ -1,0 +1,43 @@
+mikas fxsave(char* buffer) {
+	movq $1, %rax
+	cpuid
+
+	andl $16777216, %edx
+	testl %edx, %edx
+	je fxsave_exit
+
+	fxsave (%rdi)
+
+fxsave_exit:
+	ret
+}
+
+mikas fxrstor(char* buffer) {
+	movq $1, %rax
+	cpuid
+
+	andl $16777216, %edx
+	testl %edx, %edx
+	je fxrstor_exit
+
+	fxrstor (%rdi)
+
+fxrstor_exit:
+	ret
+}
+
+mikas is_fxsr_supported() -> int {
+	movq $1, %rax
+	cpuid
+
+	andl $16777216, %edx
+	testl %edx, %edx
+	je is_fxsr_supported_fail
+
+	movq $1, %rax
+	ret
+
+is_fxsr_supported_fail:
+	movq $0, %rax
+	ret 
+}
