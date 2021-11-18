@@ -1,0 +1,42 @@
+
+mikas atomic_lock(int* mutex, int bit) -> int {
+	lock btsq %rsi, (%rdi)
+	movq $1, %rcx
+	movq $0, %rax
+	cmovnc %rcx, %rax
+	ret
+}
+
+mikas atomic_unlock(int* mutex, int bit) -> int {
+	lock btrq %rsi, (%rdi)
+	movq $1, %rcx
+	movq $0, %rax
+	cmovnc %rcx, %rax
+	ret
+}
+
+mikas atomic_spinlock(int* mutex, int bit) {
+atomic_spinlock_aquire:
+	lock btsq %rsi, (%rdi)
+	jnc atomic_spinlock_exit
+atomic_spinlock_spin:
+	pause
+	btq %rsi, (%rdi)
+	jc atomic_spinlock_spin
+	jmp atomic_spinlock_aquire
+atomic_spinlock_exit:
+	ret
+}
+
+mikas atomic_acquire_spinlock(int* mutex) {
+	movq $0, %rsi
+	callq atomic_spinlock
+	callq atomic_lock
+	ret
+}
+
+mikas atomic_release_spinlock(int* mutex) {
+	movq $0, %rsi
+	callq atomic_unlock
+	ret
+}

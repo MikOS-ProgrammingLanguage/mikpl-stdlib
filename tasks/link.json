@@ -4,6 +4,7 @@
 		"ld ${ldflags} -o stdlib.o.out ${findall o}"
 	],
 	"dependencies": [
+		"mik_comp",
 		"compile"
 	],
 	"run_after_task": [

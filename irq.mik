@@ -1,0 +1,17 @@
+mikas enable_interrupts() {
+	sti
+	ret
+}
+
+mikas disable_interrupts() {
+	cli
+	ret
+}
+
+mikas are_interrupts_enabled() -> int {
+	pushfq
+	popq %rax
+	shrq $9, %rax
+	andl $1, %eax
+	ret
+}

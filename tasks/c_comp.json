@@ -1,7 +1,7 @@
 {
 	"name": "c_comp",
 	"commands": [
-		"gcc ${file} -o ${file}.o -c "
+		"gcc ${file} -o ${file}.o -c ${cflags}"
 	],
 	"dependencies": [],
 	"run_after_task": [],
